@@ -23,23 +23,23 @@ namespace AgileHttp
                 }
                 if (!string.IsNullOrEmpty(setting.Connection))
                 {
-                    request.ContentType = setting.Connection;
+                    request.Connection = setting.Connection;
                 }
                 if (!string.IsNullOrEmpty(setting.Host))
                 {
-                    request.ContentType = setting.Host;
+                    request.Host = setting.Host;
                 }
                 if (!string.IsNullOrEmpty(setting.Accept))
                 {
-                    request.ContentType = setting.Accept;
+                    request.Accept = setting.Accept;
                 }
                 if (!string.IsNullOrEmpty(setting.Referer))
                 {
-                    request.ContentType = setting.Referer;
+                    request.Referer = setting.Referer;
                 }
                 if (!string.IsNullOrEmpty(setting.UserAgent))
                 {
-                    request.ContentType = setting.UserAgent;
+                    request.UserAgent = setting.UserAgent;
                 }
 
                 if (setting.Headers != null)
