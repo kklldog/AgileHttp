@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgileHttp", "AgileHttp\AgileHttp.csproj", "{A8D50DAC-A1A5-40A8-BA21-CDCEB0640F5B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgileHttpTests", "AgileHttpTests\AgileHttpTests.csproj", "{F0649A3D-F401-4501-B2FB-9F7FF0B3353B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A8D50DAC-A1A5-40A8-BA21-CDCEB0640F5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8D50DAC-A1A5-40A8-BA21-CDCEB0640F5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8D50DAC-A1A5-40A8-BA21-CDCEB0640F5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8D50DAC-A1A5-40A8-BA21-CDCEB0640F5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0649A3D-F401-4501-B2FB-9F7FF0B3353B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0649A3D-F401-4501-B2FB-9F7FF0B3353B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0649A3D-F401-4501-B2FB-9F7FF0B3353B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0649A3D-F401-4501-B2FB-9F7FF0B3353B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F74157A5-6E55-4342-8751-7DE33F3A69E0}
+	EndGlobalSection
+EndGlobal
