@@ -85,7 +85,7 @@ namespace AgileHttp
         /// <returns></returns>
         public static RequestInfo AsHttp(this string str, string mehtod = "GET", RequestSetting setting = null)
         {
-            return HttpRequest.CreateRequest(str, mehtod, setting);
+            return AgileHttpRequest.CreateRequest(str, mehtod, setting);
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace AgileHttp
         /// <returns></returns>
         public static ResponseResult Send(this RequestInfo requestInto)
         {
-            return HttpRequest.Send(requestInto);
+            return AgileHttpRequest.Send(requestInto);
         }
 
         /// <summary>
@@ -105,16 +105,16 @@ namespace AgileHttp
         /// <returns></returns>
         public static Task<ResponseResult> SendAsync(this RequestInfo requestInto)
         {
-            return HttpRequest.SendAsync(requestInto);
+            return AgileHttpRequest.SendAsync(requestInto);
         }
 
         /// <summary>
-        /// Deserialize the http response content to type T
+        /// Deserialize the http response content to type T , use default serialize provider .
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="result"></param>
         /// <returns></returns>
-        public static T DeserializeJson<T>(this ResponseResult result)
+        public static T Deserialize<T>(this ResponseResult result)
         {
             if (result.Exception != null)
             {
@@ -125,7 +125,7 @@ namespace AgileHttp
                 var content = result.GetResponseContent();
                 if (!string.IsNullOrEmpty(content))
                 {
-                    var obj = JsonSerializer.Deserialize<T>(content);
+                    var obj = AgileHttpRequest.DefaultSerializeProvider.Deserialize<T>(content);
                     return obj;
                 }
             }

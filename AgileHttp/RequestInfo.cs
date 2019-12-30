@@ -26,10 +26,11 @@ namespace AgileHttp
             var body = Setting?.Body;
             if (body != null)
             {
-                WebRequest.ContentLength = body.Length;
+                var data = Setting.GetBodyData();
+                WebRequest.ContentLength = data.Length;
                 using (var requestStream = WebRequest.GetRequestStream())
                 {
-                    requestStream.Write(body, 0, body.Length);
+                    requestStream.Write(data, 0, data.Length);
                 }
             }
         }
@@ -39,10 +40,11 @@ namespace AgileHttp
             var body = Setting?.Body;
             if (body != null)
             {
-                WebRequest.ContentLength = body.Length;
+                var data = Setting.GetBodyData();
+                WebRequest.ContentLength = data.Length;
                 using (var requestStream = await WebRequest.GetRequestStreamAsync())
                 {
-                    requestStream.Write(body, 0, body.Length);
+                    requestStream.Write(data, 0, data.Length);
                 }
             }
         }

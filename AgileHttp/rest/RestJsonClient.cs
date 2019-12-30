@@ -11,7 +11,7 @@ namespace AgileHttp.rest
         public T Get<T>(string url)
         {
             const string method = "GET";
-            return DeserializeResult<T>(HttpRequest.Send(url, method , new RequestSetting { 
+            return DeserializeResult<T>(AgileHttpRequest.Send(url, method , new RequestSetting { 
                 ContentType = "application/json; charset=utf-8"
             }));
         }
@@ -29,7 +29,7 @@ namespace AgileHttp.rest
                 setting.Body = Encoding.UTF8.GetBytes(json);
             }
 
-            return DeserializeResult<T>(HttpRequest.Send(url, method, setting));
+            return DeserializeResult<T>(AgileHttpRequest.Send(url, method, setting));
         }
 
         public T Put<T>(string url, object body)
@@ -45,7 +45,7 @@ namespace AgileHttp.rest
                 setting.Body = Encoding.UTF8.GetBytes(json);
             }
 
-            return DeserializeResult<T>(HttpRequest.Send(url, method, setting));
+            return DeserializeResult<T>(AgileHttpRequest.Send(url, method, setting));
         }
 
         public T Delete<T>(string url)
@@ -56,7 +56,7 @@ namespace AgileHttp.rest
                 ContentType = "application/json; charset=utf-8"
             };
 
-            return DeserializeResult<T>(HttpRequest.Send(url, method, setting));
+            return DeserializeResult<T>(AgileHttpRequest.Send(url, method, setting));
         }
 
 
@@ -64,7 +64,7 @@ namespace AgileHttp.rest
         {
             using (result)
             {
-                return result.DeserializeJson<T>();
+                return result.Deserialize<T>();
             }
         }
     }

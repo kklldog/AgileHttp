@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AgileHttp.serialize;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -8,8 +9,25 @@ using System.Threading.Tasks;
 namespace AgileHttp
 {
 
-    public class HttpRequest
+    public class AgileHttpRequest
     {
+        static AgileHttpRequest() {
+            _defaultSerializeProvider = new JsonSerializeProvider();
+        }
+
+        private static ISerializeProvider _defaultSerializeProvider;
+        public static ISerializeProvider DefaultSerializeProvider => _defaultSerializeProvider;
+
+        public static void SetDefaultSerializeProvider(ISerializeProvider provider) 
+        {
+            if (provider == null)
+            {
+                throw new ArgumentNullException(nameof(provider));
+            }
+
+            _defaultSerializeProvider = provider;
+        }
+
         public static RequestInfo CreateRequest(string url, string method = "GET", RequestSetting setting = null)
         {
             if (string.IsNullOrEmpty(url))

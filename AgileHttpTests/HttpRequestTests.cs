@@ -11,7 +11,7 @@ namespace AgileHttp.Tests
         [TestMethod()]
         public void GetResponseContentTest()
         {
-            var result = HttpRequest.Send("https://www.baidu.com", "GET");
+            var result = AgileHttpRequest.Send("https://www.baidu.com", "GET");
             var str = result.GetResponseContent();
             Assert.IsNotNull(str);
 
@@ -21,7 +21,7 @@ namespace AgileHttp.Tests
         [TestMethod()]
         public async Task GetResponseContentTestAsync()
         {
-            var result = await HttpRequest.SendAsync("https://www.baidu.com", "GET");
+            var result = await AgileHttpRequest.SendAsync("https://www.baidu.com", "GET");
             var str = await result.GetResponseContentAsync();
             Assert.IsNotNull(str);
             Console.WriteLine(str);
@@ -31,7 +31,7 @@ namespace AgileHttp.Tests
         public void CreateRequestTest()
         {
             var url = "https://www.baidu.com";
-            var req = HttpRequest.CreateRequest(url, "GET");
+            var req = AgileHttpRequest.CreateRequest(url, "GET");
             Assert.IsNotNull(req);
 
             Assert.AreEqual(req.WebRequest.Method, "GET");
@@ -48,7 +48,7 @@ namespace AgileHttp.Tests
                     { "a","1"}, { "b","2" }
                 }
             };
-            req = HttpRequest.CreateRequest(url, "POST", setting);
+            req = AgileHttpRequest.CreateRequest(url, "POST", setting);
             Assert.IsNotNull(req);
 
             Assert.AreEqual(req.WebRequest.Method, "POST");
