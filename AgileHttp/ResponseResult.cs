@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace AgileHttp
 {
-    public class RequestResult : IDisposable
+    public class ResponseResult : IDisposable
     {
-        public RequestResult(HttpWebResponse response, Exception ex = null)
+        public ResponseResult(HttpWebResponse response, Exception ex = null)
         {
             this.Response = response;
             this.Exception = ex;

@@ -8,7 +8,7 @@ namespace AgileHttp
     {
         public byte[] Body { get; set; }
 
-        public List<KeyValuePair<string, string>> Headers { get; set; }
+        public IDictionary<string, string> Headers { get; set; }
 
         public string ContentType { get; set; }
 
@@ -21,7 +21,5 @@ namespace AgileHttp
         public string Accept { get; set; }
 
         public string Referer { get; set; }
-
-
     }
 }
