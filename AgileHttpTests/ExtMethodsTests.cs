@@ -67,77 +67,91 @@ namespace AgileHttpTests
         }
 
         [TestMethod()]
-        public void AsHttpTest()
-        {
-            var result = "https://www.baidu.com"
-                .AppendQueryString("name", "U")
-                .AsHttp("GET")
-                .Send()
-                .GetResponseContent();
-            Assert.IsNotNull(result);
-
-           result = "https://www.baidu.com"
-               .AppendQueryString("name", "U")
-               .AsHttp("POST",new RequestSetting { Body = Encoding.UTF8.GetBytes("hahahaha") } )
-               .Send()
-               .GetResponseContent();
-            Assert.IsNotNull(result);
-        }
-
-        [TestMethod()]
         public void AsHttpGetTest()
         {
-            var response = "https://www.baidu.com"
-                .AsHttp()
-                .Send();
-            Assert.IsNotNull(response);
-
-            var content = response.GetResponseContent();
-            Assert.IsNotNull(content);
-            Console.WriteLine(content);
+            var result = "http://localhost:5000/api/gettest"
+              .AppendQueryString("name", "kklldog")
+              .AsHttp()
+              .Send()
+              .GetResponseContent();
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result, "kklldog");
+            Console.WriteLine(result);
         }
 
         [TestMethod()]
         public void AsHttpPostTest()
         {
-            var response = "https://www.baidu.com".AsHttp("POST").Send();
-            Assert.IsNotNull(response);
-
-            var content = response.GetResponseContent();
-            Assert.IsNotNull(content);
-            Console.WriteLine(content);
+            var result = "http://localhost:5000/api/posttest"
+               .AsHttp("POST", new RequestSetting { Body = new { name = "kklldog" } })
+               .Send()
+               .GetResponseContent();
+            Assert.IsNotNull(result);
+            Console.WriteLine(result);
         }
 
         [TestMethod()]
+        public void AsHttpPost1Test()
+        {
+            var result = "http://localhost:5000/api/posttest"
+             .AsHttp("POST", new RequestSetting { Body = "hhh" })
+             .Send()
+             .GetResponseContent();
+            Assert.IsNotNull(result);
+            Assert.AreEqual("hhh", result);
+            Console.WriteLine(result);
+        }
+
+        class User
+        {
+            public string name { get; set; }
+        }
+
+        [TestMethod()]
+        public void AsHttpPost2Test()
+        {
+            var result = "http://localhost:5000/api/posttest"
+                .AsHttp("POST", new RequestSetting { Body = new { name = "kklldog" } })
+                .Send()
+                .Deserialize<User>();
+            Assert.IsNotNull(result);
+            string name = result.name;
+            Assert.IsNotNull(name);
+            Assert.AreEqual("kklldog", name);
+            Console.WriteLine(result);
+        }
+        [TestMethod()]
         public void AsHttpPutTest()
         {
-            var response = "https://www.baidu.com".AsHttp("PUT").Send();
+            var response = "http://localhost:5000/api/puttest".AsHttp("PUT").Send();
             Assert.IsNotNull(response);
-
             var content = response.GetResponseContent();
             Assert.IsNotNull(content);
+            Assert.AreEqual("ok", content);
             Console.WriteLine(content);
         }
 
         [TestMethod()]
         public void AsHttpDeleteTest()
         {
-            var response = "https://www.baidu.com".AsHttp("DELETE").Send();
+            var response = "http://localhost:5000/api/deletetest".AsHttp("DELETE").Send();
             Assert.IsNotNull(response);
 
             var content = response.GetResponseContent();
             Assert.IsNotNull(content);
+            Assert.AreEqual("ok", content);
             Console.WriteLine(content);
         }
 
         [TestMethod()]
         public void AsHttpOptionsTest()
         {
-            var response = "https://www.baidu.com".AsHttp("OPTIONS").Send();
+            var response = "http://localhost:5000/api/optionstest".AsHttp("OPTIONS").Send();
             Assert.IsNotNull(response);
 
             var content = response.GetResponseContent();
             Assert.IsNotNull(content);
+            Assert.AreEqual("ok", content);
             Console.WriteLine(content);
         }
 
@@ -145,55 +159,63 @@ namespace AgileHttpTests
         [TestMethod()]
         public async Task AsHttpGetTestAsync()
         {
-            var response = await "https://www.baidu.com".AsHttp().SendAsync();
+            var response = await "http://localhost:5000/api/gettest"
+                .AppendQueryString("name","")
+                .AsHttp()
+                .SendAsync();
             Assert.IsNotNull(response);
 
             var content = await response.GetResponseContentAsync();
             Assert.IsNotNull(content);
+            Assert.AreEqual("ok", content);
             Console.WriteLine(content);
         }
 
         [TestMethod()]
         public async Task AsHttpPostTestAsync()
         {
-            var response = await "https://www.baidu.com".AsHttp("POST").SendAsync();
+            var response = await "http://localhost:5000/api/posttest".AsHttp("POST").SendAsync();
             Assert.IsNotNull(response);
 
             var content = await response.GetResponseContentAsync();
             Assert.IsNotNull(content);
+            Assert.AreEqual("ok", content);
             Console.WriteLine(content);
         }
 
         [TestMethod()]
         public async Task AsHttpPutTestAsync()
         {
-            var response = await "https://www.baidu.com".AsHttp("PUT").SendAsync();
+            var response = await "http://localhost:5000/api/puttest".AsHttp("PUT").SendAsync();
             Assert.IsNotNull(response);
 
             var content = await response.GetResponseContentAsync();
             Assert.IsNotNull(content);
+            Assert.AreEqual("ok", content);
             Console.WriteLine(content);
         }
 
         [TestMethod()]
         public async Task AsHttpDeleteTestAsync()
         {
-            var response = await "https://www.baidu.com".AsHttp("DELETE").SendAsync();
+            var response = await "http://localhost:5000/api/deletetest".AsHttp("DELETE").SendAsync();
             Assert.IsNotNull(response);
 
             var content = await response.GetResponseContentAsync();
             Assert.IsNotNull(content);
+            Assert.AreEqual("ok", content);
             Console.WriteLine(content);
         }
 
         [TestMethod()]
         public async Task AsHttpOptionsTestAsync()
         {
-            var response = await "https://www.baidu.com".AsHttp("OPTIONS").SendAsync();
+            var response = await "http://localhost:5000/api/optionstest".AsHttp("OPTIONS").SendAsync();
             Assert.IsNotNull(response);
 
             var content = await response.GetResponseContentAsync();
             Assert.IsNotNull(content);
+            Assert.AreEqual("ok", content);
             Console.WriteLine(content);
         }
     }

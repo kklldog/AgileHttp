@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AgileHttp.serialize;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -7,17 +8,22 @@ using System.Threading.Tasks;
 
 namespace AgileHttp
 {
-    public class ResponseResult : IDisposable
+    public class ResponseInfo : IDisposable
     {
-        public ResponseResult(HttpWebResponse response, Exception ex = null)
+        public ResponseInfo(HttpWebResponse response, Exception ex = null, ISerializeProvider serializeProvider = null)
         {
             this.Response = response;
             this.Exception = ex;
+            this._serializeProvider = serializeProvider;
         }
-
+        public HttpStatusCode? StatusCode => Response?.StatusCode;
+        public Exception Exception { get; private set; }
         public HttpWebResponse Response { get; private set; }
 
         private string _responseContent;
+
+        private ISerializeProvider _serializeProvider;
+        public ISerializeProvider SerializeProvider => _serializeProvider ?? AgileHttpRequest.DefaultSerializeProvider;
 
         /// <summary>
         /// Read response content , Thread safe .
@@ -77,10 +83,6 @@ namespace AgileHttp
 
             return _responseContent;
         }
-
-        public HttpStatusCode? StatusCode => Response?.StatusCode;
-
-        public Exception Exception { get; private set; }
 
         public void Dispose()
         {

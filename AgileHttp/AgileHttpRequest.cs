@@ -81,7 +81,7 @@ namespace AgileHttp
             return new RequestInfo (request,setting);
         }
 
-        public static ResponseResult Send(RequestInfo requestInfo)
+        public static ResponseInfo Send(RequestInfo requestInfo)
         {
             if (requestInfo == null)
             {
@@ -92,20 +92,20 @@ namespace AgileHttp
             {
                 requestInfo.AppendBody();
                 var response = requestInfo.WebRequest.GetResponse() as HttpWebResponse;
-                return new ResponseResult(response);
+                return new ResponseInfo(response);
             }
             catch (WebException ex)
             {
                 var response = ex.Response as HttpWebResponse;
-                return new ResponseResult(response, ex);
+                return new ResponseInfo(response, ex);
             }
             catch (Exception ex)
             {
-                return new ResponseResult(null, ex);
+                return new ResponseInfo(null, ex);
             }
         }
 
-        public async static Task<ResponseResult> SendAsync(RequestInfo requestInfo)
+        public async static Task<ResponseInfo> SendAsync(RequestInfo requestInfo)
         {
             if (requestInfo == null)
             {
@@ -116,26 +116,26 @@ namespace AgileHttp
             {
                 requestInfo.AppendBodyAsync();
                 var response = await requestInfo.WebRequest.GetResponseAsync() as HttpWebResponse;
-                return new ResponseResult(response);
+                return new ResponseInfo(response);
             }
             catch (WebException ex)
             {
                 var response = ex.Response as HttpWebResponse;
-                return new ResponseResult(response, ex);
+                return new ResponseInfo(response, ex);
             }
             catch (Exception ex)
             {
-                return new ResponseResult(null, ex);
+                return new ResponseInfo(null, ex);
             }
         }
 
-        public static ResponseResult Send(string url, string method = "GET", RequestSetting setting = null)
+        public static ResponseInfo Send(string url, string method = "GET", RequestSetting setting = null)
         {
             var requestInfo = CreateRequest(url, method, setting);
             return Send(requestInfo);
         }
 
-        public async static Task<ResponseResult> SendAsync(string url, string method = "GET", RequestSetting setting = null)
+        public async static Task<ResponseInfo> SendAsync(string url, string method = "GET", RequestSetting setting = null)
         {
             var requestInfo = CreateRequest(url, method, setting);
             var result = await SendAsync(requestInfo);

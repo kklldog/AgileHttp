@@ -93,7 +93,7 @@ namespace AgileHttp
         /// </summary>
         /// <param name="requestInto"></param>
         /// <returns></returns>
-        public static ResponseResult Send(this RequestInfo requestInto)
+        public static ResponseInfo Send(this RequestInfo requestInto)
         {
             return AgileHttpRequest.Send(requestInto);
         }
@@ -103,7 +103,7 @@ namespace AgileHttp
         /// </summary>
         /// <param name="requestInto"></param>
         /// <returns></returns>
-        public static Task<ResponseResult> SendAsync(this RequestInfo requestInto)
+        public static Task<ResponseInfo> SendAsync(this RequestInfo requestInto)
         {
             return AgileHttpRequest.SendAsync(requestInto);
         }
@@ -114,7 +114,7 @@ namespace AgileHttp
         /// <typeparam name="T"></typeparam>
         /// <param name="result"></param>
         /// <returns></returns>
-        public static T Deserialize<T>(this ResponseResult result)
+        public static T Deserialize<T>(this ResponseInfo result)
         {
             if (result.Exception != null)
             {
@@ -125,7 +125,7 @@ namespace AgileHttp
                 var content = result.GetResponseContent();
                 if (!string.IsNullOrEmpty(content))
                 {
-                    var obj = AgileHttpRequest.DefaultSerializeProvider.Deserialize<T>(content);
+                    var obj = result.SerializeProvider.Deserialize<T>(content);
                     return obj;
                 }
             }

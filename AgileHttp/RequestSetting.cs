@@ -24,11 +24,11 @@ namespace AgileHttp
 
         public object Body { get; set; }
 
-        public byte[] GetBodyData ()
+        public virtual byte[] GetBodyData ()
         {
             if (Body == null)
             {
-                throw new ArgumentNullException("The Body object is null .");
+                throw new ArgumentNullException("Body");
             }
 
             if (Body is String)
