@@ -32,12 +32,18 @@ namespace AgileHttpTests
             url = str.AppendQueryString("a", "1");
             Assert.IsNotNull(url);
             Assert.AreEqual(url, "?f=1&a=1");
+
+            str = "";
+            url = str.AppendQueryString("a", "1")
+                .AppendQueryString("b", "2");
+            Assert.IsNotNull(url);
+            Assert.AreEqual(url, "?a=1&b=2");
         }
 
         [TestMethod()]
         public void AppendQueryStringsTest()
         {
-            var qs = new Dictionary<string, string>();
+            var qs = new Dictionary<string, object>();
             var str = "";
             var url = str.AppendQueryStrings(qs);
             Assert.IsNotNull(url);

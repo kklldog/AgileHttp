@@ -15,7 +15,7 @@ namespace AgileHttp
         /// <param name="str"></param>
         /// <param name="queryStrings"></param>
         /// <returns></returns>
-        public static string AppendQueryStrings(this string str, IDictionary<string, string> queryStrings)
+        public static string AppendQueryStrings(this string str, IDictionary<string, object> queryStrings)
         {
             if (string.IsNullOrEmpty(str))
             {
@@ -54,7 +54,7 @@ namespace AgileHttp
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static string AppendQueryString(this string str, string key, string val)
+        public static string AppendQueryString(this string str, string key, object val)
         {
             if (string.IsNullOrEmpty(str))
             {
