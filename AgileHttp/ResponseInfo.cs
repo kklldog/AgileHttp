@@ -26,7 +26,7 @@ namespace AgileHttp
         public ISerializeProvider SerializeProvider => _serializeProvider ?? AgileHttpRequest.DefaultSerializeProvider;
 
         /// <summary>
-        /// Read response content , Thread safe .
+        /// Read response content, Not Thread safe .
         /// </summary>
         /// <returns></returns>
         public string GetResponseContent()
@@ -43,15 +43,12 @@ namespace AgileHttp
 
             if (_responseContent == null)
             {
-                lock (Response)
+                if (_responseContent == null)
                 {
-                    if (_responseContent == null)
+                    using (var responseStream = Response.GetResponseStream())
                     {
-                        using (var responseStream = Response.GetResponseStream())
-                        {
-                            using (var reader = new StreamReader(responseStream, Encoding.UTF8))
-                                _responseContent = reader.ReadToEnd();
-                        }
+                        using (var reader = new StreamReader(responseStream, Encoding.UTF8))
+                            _responseContent = reader.ReadToEnd();
                     }
                 }
             }
