@@ -92,16 +92,16 @@ namespace AgileHttp
             {
                 requestInfo.AppendBody();
                 var response = requestInfo.WebRequest.GetResponse() as HttpWebResponse;
-                return new ResponseInfo(response);
+                return new ResponseInfo(response, requestInfo);
             }
             catch (WebException ex)
             {
                 var response = ex.Response as HttpWebResponse;
-                return new ResponseInfo(response, ex);
+                return new ResponseInfo(response, requestInfo, ex);
             }
             catch (Exception ex)
             {
-                return new ResponseInfo(null, ex);
+                return new ResponseInfo(null, requestInfo, ex);
             }
         }
 
@@ -116,16 +116,16 @@ namespace AgileHttp
             {
                 requestInfo.AppendBodyAsync();
                 var response = await requestInfo.WebRequest.GetResponseAsync() as HttpWebResponse;
-                return new ResponseInfo(response);
+                return new ResponseInfo(response, requestInfo);
             }
             catch (WebException ex)
             {
                 var response = ex.Response as HttpWebResponse;
-                return new ResponseInfo(response, ex);
+                return new ResponseInfo(response, requestInfo, ex);
             }
             catch (Exception ex)
             {
-                return new ResponseInfo(null, ex);
+                return new ResponseInfo(null, requestInfo, ex);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AgileHttp.serialize;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
@@ -125,7 +126,7 @@ namespace AgileHttp
                 var content = result.GetResponseContent();
                 if (!string.IsNullOrEmpty(content))
                 {
-                    var obj = result.SerializeProvider.Deserialize<T>(content);
+                    var obj = (result.RequestInfo.Setting?.SerializeProvider ?? AgileHttpRequest.DefaultSerializeProvider).Deserialize<T>(content);
                     return obj;
                 }
             }

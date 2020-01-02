@@ -10,20 +10,18 @@ namespace AgileHttp
 {
     public class ResponseInfo : IDisposable
     {
-        public ResponseInfo(HttpWebResponse response, Exception ex = null, ISerializeProvider serializeProvider = null)
+        public ResponseInfo(HttpWebResponse response, RequestInfo reqInfo , Exception ex = null)
         {
             this.Response = response;
             this.Exception = ex;
-            this._serializeProvider = serializeProvider;
+            RequestInfo = reqInfo;
         }
         public HttpStatusCode? StatusCode => Response?.StatusCode;
         public Exception Exception { get; private set; }
         public HttpWebResponse Response { get; private set; }
+        public RequestInfo RequestInfo { get; private set; }
 
         private string _responseContent;
-
-        private ISerializeProvider _serializeProvider;
-        public ISerializeProvider SerializeProvider => _serializeProvider ?? AgileHttpRequest.DefaultSerializeProvider;
 
         /// <summary>
         /// Read response content, Not Thread safe .
