@@ -1,23 +1,29 @@
 ﻿using AgileHttp.serialize;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace AgileHttp
 {
-
-    public class AgileHttpRequest
+    public class HTTP
     {
-        static AgileHttpRequest() {
+        static HTTP() {
             _defaultSerializeProvider = new JsonSerializeProvider();
+            _defaultEncoding = Encoding.UTF8;
         }
 
         private static ISerializeProvider _defaultSerializeProvider;
-        public static ISerializeProvider DefaultSerializeProvider => _defaultSerializeProvider;
+        private static Encoding _defaultEncoding;
 
+        /// <summary>
+        /// Default SerializeProvider , JsonSerializeProvider is default .
+        /// </summary>
+        public static ISerializeProvider DefaultSerializeProvider => _defaultSerializeProvider;
+        /// <summary>
+        /// Default Encoding , UTF8 Encoding is default .
+        /// </summary>
+        public static Encoding DefaultEncoding => _defaultEncoding;
         public static void SetDefaultSerializeProvider(ISerializeProvider provider) 
         {
             if (provider == null)
@@ -27,8 +33,16 @@ namespace AgileHttp
 
             _defaultSerializeProvider = provider;
         }
+        public static void SetDefaultEncoding(Encoding encoding) {
+            if (encoding == null)
+            {
+                throw new ArgumentNullException(nameof(encoding));
+            }
 
-        public static RequestInfo CreateRequest(string url, string method = "GET", RequestSetting setting = null)
+            _defaultEncoding = encoding;
+        }
+
+        public static RequestInfo CreateRequest(string url, string method = "GET",object body = null)
         {
             if (string.IsNullOrEmpty(url))
             {
@@ -42,43 +56,7 @@ namespace AgileHttp
             HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
             request.Method = method;
 
-            if (setting != null)
-            {
-                if (!string.IsNullOrEmpty(setting.ContentType))
-                {
-                    request.ContentType = setting.ContentType;
-                }
-                if (!string.IsNullOrEmpty(setting.Connection))
-                {
-                    request.Connection = setting.Connection;
-                }
-                if (!string.IsNullOrEmpty(setting.Host))
-                {
-                    request.Host = setting.Host;
-                }
-                if (!string.IsNullOrEmpty(setting.Accept))
-                {
-                    request.Accept = setting.Accept;
-                }
-                if (!string.IsNullOrEmpty(setting.Referer))
-                {
-                    request.Referer = setting.Referer;
-                }
-                if (!string.IsNullOrEmpty(setting.UserAgent))
-                {
-                    request.UserAgent = setting.UserAgent;
-                }
-
-                if (setting.Headers != null)
-                {
-                    foreach (var keyValuePair in setting.Headers)
-                    {
-                        request.Headers.Add(keyValuePair.Key, keyValuePair.Value);
-                    }
-                }
-            }
-
-            return new RequestInfo (request,setting);
+            return new RequestInfo (request, body);
         }
 
         public static ResponseInfo Send(RequestInfo requestInfo)
@@ -114,7 +92,7 @@ namespace AgileHttp
 
             try
             {
-                requestInfo.AppendBodyAsync();
+                await requestInfo.AppendBodyAsync();
                 var response = await requestInfo.WebRequest.GetResponseAsync() as HttpWebResponse;
                 return new ResponseInfo(response, requestInfo);
             }
@@ -129,15 +107,15 @@ namespace AgileHttp
             }
         }
 
-        public static ResponseInfo Send(string url, string method = "GET", RequestSetting setting = null)
+        public static ResponseInfo Send(string url, string method = "GET", Object body = null, RequestOptions setting = null)
         {
-            var requestInfo = CreateRequest(url, method, setting);
+            var requestInfo = CreateRequest(url, method, body).Config(setting);
             return Send(requestInfo);
         }
 
-        public async static Task<ResponseInfo> SendAsync(string url, string method = "GET", RequestSetting setting = null)
+        public async static Task<ResponseInfo> SendAsync(string url, string method = "GET", Object body = null, RequestOptions setting = null)
         {
-            var requestInfo = CreateRequest(url, method, setting);
+            var requestInfo = CreateRequest(url, method, body).Config(setting);
             var result = await SendAsync(requestInfo);
 
             return result;

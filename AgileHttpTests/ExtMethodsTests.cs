@@ -47,10 +47,10 @@ namespace AgileHttpTests
             var str = "";
             var url = str.AppendQueryStrings(qs);
             Assert.IsNotNull(url);
-            Assert.AreEqual(url,"?");
+            Assert.AreEqual(url, "?");
 
             qs.Add("a", "1");
-            qs.Add("b","2");
+            qs.Add("b", "2");
             str = "";
             url = str.AppendQueryStrings(qs);
             Assert.IsNotNull(url);
@@ -89,7 +89,7 @@ namespace AgileHttpTests
         public void AsHttpPostTest()
         {
             var result = "http://localhost:5000/api/posttest"
-               .AsHttp("POST", new RequestSetting { Body = new { name = "kklldog" } })
+               .AsHttp("POST", new { name = "kklldog" })
                .Send()
                .GetResponseContent();
             Assert.IsNotNull(result);
@@ -100,7 +100,20 @@ namespace AgileHttpTests
         public void AsHttpPost1Test()
         {
             var result = "http://localhost:5000/api/posttest"
-             .AsHttp("POST", new RequestSetting { Body = "hhh" })
+             .AsHttp("POST", "hhh")
+             .Send()
+             .GetResponseContent();
+            Assert.IsNotNull(result);
+            Assert.AreEqual("hhh", result);
+            Console.WriteLine(result);
+        }
+
+        [TestMethod()]
+        public void AsHttpPost2Test()
+        {
+            var body = Encoding.UTF8.GetBytes("hhh");
+            var result = "http://localhost:5000/api/posttest"
+             .AsHttp("POST", body)
              .Send()
              .GetResponseContent();
             Assert.IsNotNull(result);
@@ -114,10 +127,14 @@ namespace AgileHttpTests
         }
 
         [TestMethod()]
-        public void AsHttpPost2Test()
+        public void AsHttpPost3Test()
         {
             var result = "http://localhost:5000/api/posttest"
-                .AsHttp("POST", new RequestSetting { Body = new { name = "kklldog" } })
+                .AsHttp("POST", new { name = "kklldog" })
+                .Config(new RequestOptions
+                {
+                    ContentType = "application/json"
+                })
                 .Send()
                 .Deserialize<User>();
             Assert.IsNotNull(result);
@@ -166,7 +183,7 @@ namespace AgileHttpTests
         public async Task AsHttpGetTestAsync()
         {
             var response = await "http://localhost:5000/api/gettest"
-                .AppendQueryString("name","")
+                .AppendQueryString("name", "")
                 .AsHttp()
                 .SendAsync();
             Assert.IsNotNull(response);
@@ -187,6 +204,24 @@ namespace AgileHttpTests
             Assert.IsNotNull(content);
             Assert.AreEqual("ok", content);
             Console.WriteLine(content);
+        }
+
+        [TestMethod()]
+        public async Task AsHttpPostTest1Async()
+        {
+            var response = await "http://localhost:5000/api/posttest"
+                .AsHttp("POST", new { name = "kklldog" })
+                .Config(new RequestOptions
+                {
+                    ContentType = "application/json"
+                })
+                .SendAsync();
+            var result = response.Deserialize<User>();
+            Assert.IsNotNull(result);
+            string name = result.name;
+            Assert.IsNotNull(name);
+            Assert.AreEqual("kklldog", name);
+            Console.WriteLine(result);
         }
 
         [TestMethod()]

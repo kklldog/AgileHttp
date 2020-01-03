@@ -82,11 +82,12 @@ namespace AgileHttp
         /// </summary>
         /// <param name="str"></param>
         /// <param name="mehtod">GET method is default </param>
-        /// <param name="setting"></param>
+        /// <param name="options"></param>
         /// <returns></returns>
-        public static RequestInfo AsHttp(this string str, string mehtod = "GET", RequestSetting setting = null)
+        public static RequestInfo AsHttp(this string str, string mehtod = "GET",object body = null)
         {
-            return AgileHttpRequest.CreateRequest(str, mehtod, setting);
+            var req = HTTP.CreateRequest(str, mehtod, body);
+            return req;
         }
 
         /// <summary>
@@ -96,7 +97,7 @@ namespace AgileHttp
         /// <returns></returns>
         public static ResponseInfo Send(this RequestInfo requestInto)
         {
-            return AgileHttpRequest.Send(requestInto);
+            return HTTP.Send(requestInto);
         }
 
         /// <summary>
@@ -106,7 +107,7 @@ namespace AgileHttp
         /// <returns></returns>
         public static Task<ResponseInfo> SendAsync(this RequestInfo requestInto)
         {
-            return AgileHttpRequest.SendAsync(requestInto);
+            return HTTP.SendAsync(requestInto);
         }
 
         /// <summary>
@@ -126,7 +127,7 @@ namespace AgileHttp
                 var content = result.GetResponseContent();
                 if (!string.IsNullOrEmpty(content))
                 {
-                    var obj = (result.RequestInfo.Setting?.SerializeProvider ?? AgileHttpRequest.DefaultSerializeProvider).Deserialize<T>(content);
+                    var obj = (result.RequestInfo.Options?.SerializeProvider ?? HTTP.DefaultSerializeProvider).Deserialize<T>(content);
                     return obj;
                 }
             }
