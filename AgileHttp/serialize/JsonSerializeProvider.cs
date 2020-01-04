@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Text.Json;
 
 namespace AgileHttp.serialize
 {
@@ -14,7 +14,7 @@ namespace AgileHttp.serialize
                 throw new ArgumentNullException(nameof(obj));
             }
 
-            var json = JsonSerializer.Serialize(obj);
+            var json = JsonConvert.SerializeObject(obj);
             return json;
         }
 
@@ -25,7 +25,7 @@ namespace AgileHttp.serialize
                 throw new ArgumentNullException(nameof(content));
             }
 
-            var obj = JsonSerializer.Deserialize<T>(content);
+            var obj = JsonConvert.DeserializeObject<T>(content);
             return obj;
         }
     }

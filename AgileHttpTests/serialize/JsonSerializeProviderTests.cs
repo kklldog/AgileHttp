@@ -26,6 +26,10 @@ namespace AgileHttp.serialize.Tests
             var json = "{\"Name\":\"user1\",\"Age\":1,\"Birth\":\"2019-12-31T12:12:12\",\"Dead\":false}";
             var user1 = new JsonSerializeProvider().Deserialize<TestModel>(json);
             Assert.IsNotNull(user1);
+
+            var user2 = new JsonSerializeProvider().Deserialize<dynamic>(json);
+            Assert.IsNotNull(user2);
+            Assert.AreEqual("user1", (string)user2.Name);
         }
 
         [TestMethod()]
