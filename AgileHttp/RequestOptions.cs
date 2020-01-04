@@ -1,6 +1,8 @@
 ﻿using AgileHttp.serialize;
 using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace AgileHttp
@@ -9,7 +11,7 @@ namespace AgileHttp
     {
         private ISerializeProvider _serializeProvider;
         private Encoding _encoding;
-        public RequestOptions(ISerializeProvider serializeProvider = null) 
+        public RequestOptions(ISerializeProvider serializeProvider = null)
         {
             _serializeProvider = serializeProvider;
         }
@@ -35,5 +37,9 @@ namespace AgileHttp
         public string Accept { get; set; }
 
         public string Referer { get; set; }
+
+        public X509Certificate Certificate { get; set; }
+
+        public IWebProxy Proxy { get; set; }
     }
 }

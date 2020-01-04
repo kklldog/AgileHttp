@@ -50,13 +50,20 @@ namespace AgileHttp
                 {
                     WebRequest.UserAgent = Options.UserAgent;
                 }
-
                 if (Options.Headers != null)
                 {
                     foreach (var keyValuePair in Options.Headers)
                     {
                         WebRequest.Headers.Add(keyValuePair.Key, keyValuePair.Value);
                     }
+                }
+                if (Options.Certificate != null)
+                {
+                    WebRequest.ClientCertificates.Add(Options.Certificate);
+                }
+                if (Options.Proxy != null)
+                {
+                    WebRequest.Proxy = Options.Proxy;
                 }
             }
             return this;
