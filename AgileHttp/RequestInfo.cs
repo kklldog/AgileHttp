@@ -17,7 +17,7 @@ namespace AgileHttp
             }
 
             WebRequest = request;
-            Options = options;
+            Config(options);
             Body = body;
         }
 

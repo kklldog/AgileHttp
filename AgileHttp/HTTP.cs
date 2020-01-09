@@ -42,7 +42,7 @@ namespace AgileHttp
             _defaultEncoding = encoding;
         }
 
-        public static RequestInfo CreateRequest(string url, string method = "GET",object body = null)
+        public static RequestInfo CreateRequest(string url, string method = "GET", object body = null, RequestOptions options = null)
         {
             if (string.IsNullOrEmpty(url))
             {
@@ -56,7 +56,7 @@ namespace AgileHttp
             HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
             request.Method = method;
 
-            return new RequestInfo (request, body);
+            return new RequestInfo (request, body, options);
         }
 
         public static ResponseInfo Send(RequestInfo requestInfo)
@@ -107,16 +107,16 @@ namespace AgileHttp
             }
         }
 
-        public static ResponseInfo Send(string url, string method = "GET", Object body = null, RequestOptions setting = null)
+        public static ResponseInfo Send(string url, string method = "GET", Object body = null, RequestOptions options = null)
         {
-            var requestInfo = CreateRequest(url, method, body).Config(setting);
+            var requestInfo = CreateRequest(url, method, body, options);
             return Send(requestInfo);
         }
 
-        public async static Task<ResponseInfo> SendAsync(string url, string method = "GET", Object body = null, RequestOptions setting = null)
+        public static Task<ResponseInfo> SendAsync(string url, string method = "GET", Object body = null, RequestOptions options = null)
         {
-            var requestInfo = CreateRequest(url, method, body).Config(setting);
-            var result = await SendAsync(requestInfo);
+            var requestInfo = CreateRequest(url, method, body, options);
+            var result = SendAsync(requestInfo);
 
             return result;
         }

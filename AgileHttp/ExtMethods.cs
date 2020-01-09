@@ -77,16 +77,26 @@ namespace AgileHttp
         }
 
         /// <summary>
-        /// create a http request base on this str 
+        /// create a RequestInfo object base on this str .
         /// </summary>
         /// <param name="str"></param>
         /// <param name="mehtod">GET method is default </param>
-        /// <param name="options"></param>
         /// <returns></returns>
         public static RequestInfo AsHttp(this string str, string mehtod = "GET",object body = null)
         {
             var req = HTTP.CreateRequest(str, mehtod, body);
             return req;
+        }
+
+        /// <summary>
+        /// Create a HttpClient object base on this str .
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static HttpClient AsHttpClient(this string str) 
+        {
+            var client = new HttpClient(str);
+            return client;
         }
 
         /// <summary>
