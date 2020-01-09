@@ -3,26 +3,25 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.4</Version>
+    <Version>0.0.5</Version>
     <Description>An agile http client . https://github.com/kklldog/AgileHttp .</Description>
     <Authors>minjie zhou</Authors>
     <Company />
     <Product />
-    <PackageLicenseExpression></PackageLicenseExpression>
-    <PackageLicenseFile>LICENSE-2.0.txt</PackageLicenseFile>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageLicenseFile></PackageLicenseFile>
     <RepositoryType></RepositoryType>
     <PackageProjectUrl>https://github.com/kklldog/AgileHttp</PackageProjectUrl>
+    <PackageTags>HttpClient,AgileHttp</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <None Remove="LICENSE-2.0.txt" />
+    <None Remove="LICENSE-2.0.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="LICENSE-2.0.txt">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
 </Project>
