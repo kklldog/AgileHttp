@@ -79,18 +79,18 @@ HTTP.Send("http://www.baidu.com").Deserialize<User>();
 ### RequestOptions    
 使用RequestOptions可以对每个请求进行配置，比如设置ContentType，设置Headers，设置代理等等。  
  属性 | 说明 
- ---- | ---- 
- SerializeProvider | 获取序列化器 
- Encoding | 获取编码方式  
-Headers | 获取或设置HttpHeaders 
- ContentType | 获取或设置Http ContentType属性 
- Host | 获取或设置Http Host属性  
- Connection | 获取或设置Http Connection属性  
- UserAgent | 获取或设置Http UserAgent属性    
- Accept | 获取或设置Http Accept属性   
- Referer | 获取或设置Http Referer属性  
- Certificate | 获取或设置X509证书信息  
- Proxy | 获取或设置代理信息   
+  - | -  
+ SerializeProvider | 获取序列化器
+ Encoding | 获取编码方式
+ Headers | 获取或设置HttpHeaders
+ ContentType | 获取或设置Http ContentType属性
+ Host | 获取或设置Http Host属性
+ Connection | 获取或设置Http Connection属性
+ UserAgent | 获取或设置Http UserAgent属性 
+ Accept | 获取或设置Http Accept属性
+ Referer | 获取或设置Http Referer属性
+ Certificate | 获取或设置X509证书信息
+ Proxy | 获取或设置代理信息
 ### 关于序列化/反序列化   
 当你使用Post，Put（不限于这2个方法）方法提交一个对象的时候AgileHttp会自动就行序列化。使用泛型Get T, Post T方法会自动进行反序列化。默认使用JsonSerializeProvider来进行序列化及反序列化。JsonSerializeProvider使用著名的Newtonsoft.Json实现了ISerializeProvider接口，如果你喜欢你也可以自己实现自己的Provider，比如实现一个XMLSerializeProvider。
 ```
