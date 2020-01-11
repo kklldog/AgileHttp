@@ -1,5 +1,6 @@
 # AgileHttp
-An aglie http client .
+An aglie http client .    
+![Nuget](https://img.shields.io/nuget/v/AgileHttp?color=green) ![Nuget](https://img.shields.io/nuget/dt/Agilehttp?color=green)
 ## 依赖 
 Newtonsoft.Json 12.0.3 
 ## 安装 
