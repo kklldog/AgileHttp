@@ -52,7 +52,7 @@ var user = "http://localhost:5000/api/user"
 "http://localhost:5000/api/user".AppendQueryString("name", "mjzhou") // 返回结果为"http://localhost:5000/api/user?name=mjzhou"
 ```
 2. String.AppendQueryStrings   
-给一个字符串添加查询参数
+给一个字符串添加多个查询参数
 ```
 var qs = new Dictionary<string, object>();
 qs.Add("a", "1");
@@ -60,13 +60,13 @@ qs.Add("b", "2");
 "http://localhost:5000/api/user".AppendQueryStrings(qs) // 返回结果为"http://localhost:5000/api/user?a=1&b=2"
 ```
 3. String.AsHttp   
-基于当前字符串为URL创建一个HttpRequest
+以当前字符串为URL创建一个HttpRequest
 ```
 "http://www.baidu.com".AsHttp().Send(); //默认为Get
 "http://localhost:5000/api/user".AsHttp("POST", new { name = "mjzhou" }).Send();
 ```
 4. String.AsHttpClient   
-基于当前字符串为URL创建一个HttpClient
+以当前字符串为URL创建一个HttpClient
 ```
 "http://www.baidu.com".AsHttpClient().Get();
 "http://localhost:5000/api/user".AsHttpClient().Post(new { name = "mjzhou" });
@@ -77,20 +77,21 @@ ResponseInfo是请求结果的包装类，使用Deserialize方法可以直接反
 HTTP.Send("http://www.baidu.com").Deserialize<User>();
 ```
 ### RequestOptions    
-使用RequestOptions可以对每个请求进行配置，比如设置ContentType，设置Headers，设置代理等等。  
- 属性 | 说明 
-  - | -  
- SerializeProvider | 获取序列化器
- Encoding | 获取编码方式
- Headers | 获取或设置HttpHeaders
- ContentType | 获取或设置Http ContentType属性
- Host | 获取或设置Http Host属性
- Connection | 获取或设置Http Connection属性
- UserAgent | 获取或设置Http UserAgent属性 
- Accept | 获取或设置Http Accept属性
- Referer | 获取或设置Http Referer属性
- Certificate | 获取或设置X509证书信息
- Proxy | 获取或设置代理信息
+使用RequestOptions可以对每个请求进行配置，比如设置ContentType，设置Headers，设置代理等等。   
+
+| 属性 | 说明 |   
+| ---- | ---- |   
+| SerializeProvider | 获取序列化器 |   
+| Encoding | 获取编码方式 |
+| Headers | 获取或设置HttpHeaders |
+| ContentType | 获取或设置Http ContentType属性 |
+| Host | 获取或设置Http Host属性 |
+| Connection | 获取或设置Http Connection属性 |
+| UserAgent | 获取或设置Http UserAgent属性 | 
+| Accept | 获取或设置Http Accept属性 |
+| Referer | 获取或设置Http Referer属性 |
+| Certificate | 获取或设置X509证书信息 |
+| Proxy | 获取或设置代理信息 |
 ### 关于序列化/反序列化   
 当你使用Post，Put（不限于这2个方法）方法提交一个对象的时候AgileHttp会自动就行序列化。使用泛型Get T, Post T方法会自动进行反序列化。默认使用JsonSerializeProvider来进行序列化及反序列化。JsonSerializeProvider使用著名的Newtonsoft.Json实现了ISerializeProvider接口，如果你喜欢你也可以自己实现自己的Provider，比如实现一个XMLSerializeProvider。
 ```
