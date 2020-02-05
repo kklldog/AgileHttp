@@ -3,12 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.5</Version>
+    <Version>0.0.6</Version>
     <Description>An agile http client . https://github.com/kklldog/AgileHttp .</Description>
     <Authors>minjie zhou</Authors>
     <Company />
     <Product />
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageLicenseFile></PackageLicenseFile>
     <RepositoryType></RepositoryType>
     <PackageProjectUrl>https://github.com/kklldog/AgileHttp</PackageProjectUrl>
