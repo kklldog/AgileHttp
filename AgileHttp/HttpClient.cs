@@ -137,7 +137,7 @@ namespace AgileHttp
         #region async
         private Task<ResponseInfo> DoAsync(string method, Object body)
         {
-            Request = HTTP.CreateRequest(Url, method, body);
+            Request = HTTP.CreateRequest(Url, method, body, RequestOptions);
             return HTTP.SendAsync(Request);
         }
 
